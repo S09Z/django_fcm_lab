@@ -57,7 +57,35 @@ Temporary Items
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,macos
 
 # Custom rules (everything added below won't be overriden by 'Generate .gitignore File' if you use 'Update' option)
+# Ignore virtual environment directories
+venv/
+env/
 
-*/venv
+# Ignore Python cache files
+__pycache__/
+*.py[cod]
+
+# Ignore Django migrations
+*/migrations/*
+
+# Ignore database files
+*.sqlite3
+
+# Ignore compiled files
+*.pyc
+
+# Ignore IDE/editor files
+.vscode/
+.idea/
+
+# Ignore system files
+.DS_Store
+
+# Ignore Firebase credentials
+firebase_credentials.json
+
+# Ignore other environment-specific files
+.env
+
 .vscode
 firebase_credentials.json
