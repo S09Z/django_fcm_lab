@@ -23,5 +23,5 @@ Follow these steps to set up the project locally.
 ### Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/django-fcm-test.git
-cd django-fcm-test
+git clone https://github.com/s09z/django-fcm-lab.git
+cd django-fcm-labg
