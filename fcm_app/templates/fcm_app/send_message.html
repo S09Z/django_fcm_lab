@@ -1,0 +1,38 @@
+<!-- fcm_app/templates/fcm_app/send_message.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Send FCM Message</title>
+</head>
+<body>
+    <h1>Send FCM Message</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Send Message</button>
+    </form>
+    <button onclick="history.back()">Go Back</button>
+
+    <h2>Subscribed Tokens</h2>
+    <ul>
+        {% for token in tokens %}
+        <li>{{ token }}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Messages</h2>
+    <div id="messages">
+        <!-- Display messages from the channel -->
+    </div>
+
+    <script>
+        var socket = new WebSocket('ws://' + window.location.host + '/ws/messages/');
+        socket.onmessage = function(e) {
+            var data = JSON.parse(e.data);
+            var messages = document.getElementById('messages');
+            messages.innerHTML += '<p>' + data.message + '</p>';
+            console.log(`data`, data)
+        };
+    </script>
+</body>
+</html>

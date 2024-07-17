@@ -40,7 +40,8 @@ Deprecated==1.2.14
 dictdiffer==0.9.0
 diskcache==5.6.3
 distro==1.9.0
-Django==5.0.7
+# Django==5.0.7
+Django==3.2.5
 docker==7.1.0
 dpath==2.1.6
 dulwich==0.22.1
@@ -153,7 +154,8 @@ pytz==2024.1
 PyYAML==6.0.1
 pyzmq==26.0.3
 querystring-parser==1.2.4
-requests==2.32.2
+# requests==2.32.2
+requests==2.25.1
 rich==13.7.1
 rsa==4.9
 ruamel.yaml==0.18.6

@@ -1,0 +1,38 @@
+<!-- fcm_app/templates/fcm_app/subscribe.html -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Subscribe to FCM</title>
+  </head>
+  <body>
+    <h1>Subscribe to FCM</h1>
+    <form method="post">
+      {% csrf_token %} {{ form.as_p }}
+      <button type="submit">Subscribe</button>
+    </form>
+    <h2>Subscribed Tokens</h2>
+    <ul>
+      {% for token in tokens %}
+      <li>
+        {{ token.token }} -
+        <a href="{% url 'unsubscribe' token.id %}">Unsubscribe</a>
+      </li>
+      {% endfor %}
+    </ul>
+    <button onclick="history.back()">Go Back</button>
+    <h2>Messages</h2>
+    <div id="messages">
+      <!-- Display messages from the channel -->
+    </div>
+  </body>
+  <script>
+    var socket = new WebSocket(
+      "ws://" + window.location.host + "/ws/messages/"
+    );
+    socket.onmessage = function (e) {
+      var data = JSON.parse(e.data);
+      var messages = document.getElementById("messages");
+      messages.innerHTML += "<p>" + data.message + "</p>";
+    };
+  </script>
+</html>
