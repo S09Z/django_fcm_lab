@@ -139,7 +139,7 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Firebase Cloud Messaging server key
-FCM_SERVER_KEY = 'your-fcm-server-key'
+FCM_SERVER_KEY = 'BOrNGXnv77alDrPVeu3Beo5_CxaVOU4zKjbEA7HtbJhBJWwHGMWa0m8P9wo4o9osTJSYQ3X4LElEKTGTbEDeRJw'
 
 # Logging configuration
 LOGGING = {

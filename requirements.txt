@@ -22,6 +22,7 @@ cattrs==23.1.2
 celery==5.4.0
 certifi==2024.2.2
 cffi==1.16.0
+channels==4.1.0
 charset-normalizer==3.3.2
 circus==0.18.0
 click==8.1.7
@@ -40,8 +41,7 @@ Deprecated==1.2.14
 dictdiffer==0.9.0
 diskcache==5.6.3
 distro==1.9.0
-# Django==5.0.7
-Django==3.2.5
+Django==5.0.7
 docker==7.1.0
 dpath==2.1.6
 dulwich==0.22.1
@@ -154,8 +154,7 @@ pytz==2024.1
 PyYAML==6.0.1
 pyzmq==26.0.3
 querystring-parser==1.2.4
-# requests==2.32.2
-requests==2.25.1
+requests==2.32.2
 rich==13.7.1
 rsa==4.9
 ruamel.yaml==0.18.6
