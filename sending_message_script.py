@@ -12,15 +12,27 @@ customizations. For example, a badge is added to messages that are sent to iOS d
 import argparse
 import json
 import requests
+import firebase_admin
 import google.auth.transport.requests
 
 from google.oauth2 import service_account
+from firebase_admin import credentials, firestore
 
-PROJECT_ID = '<YOUR-PROJECT-ID>'
+PROJECT_ID = 'murpheys09-sandboxs'
 BASE_URL = 'https://fcm.googleapis.com'
 FCM_ENDPOINT = 'v1/projects/' + PROJECT_ID + '/messages:send'
 FCM_URL = BASE_URL + '/' + FCM_ENDPOINT
 SCOPES = ['https://www.googleapis.com/auth/firebase.messaging']
+
+# Path to your firebase_credentials.json file
+FIREBASE_CREDENTIALS = 'firebase_credentials.json'
+
+# Initialize Firebase Admin SDK
+cred = credentials.Certificate(FIREBASE_CREDENTIALS)
+firebase_admin.initialize_app(cred)
+
+# Initialize Firestore client
+db = firestore.client()
 
 # [START retrieve_access_token]
 def _get_access_token():
@@ -29,7 +41,7 @@ def _get_access_token():
   :return: Access token.
   """
   credentials = service_account.Credentials.from_service_account_file(
-    'service-account.json', scopes=SCOPES)
+    'firebase_credentials.json', scopes=SCOPES)
   request = google.auth.transport.requests.Request()
   credentials.refresh(request)
   return credentials.token
@@ -46,6 +58,9 @@ def _send_fcm_message(fcm_message):
     'Authorization': 'Bearer ' + _get_access_token(),
     'Content-Type': 'application/json; UTF-8',
   }
+
+  add_message_to_firestore(fcm_message['message'])
+
   # [END use_access_token]
   resp = requests.post(FCM_URL, data=json.dumps(fcm_message), headers=headers)
 
@@ -102,6 +117,18 @@ def _build_override_message():
   fcm_message['message']['apns'] = apns_override
 
   return fcm_message
+
+def add_message_to_firestore(message):
+    # Reference to the collection where messages are stored
+    messages_ref = db.collection(u'messages')
+    
+    # Add a new message to the collection
+    messages_ref.add({
+        u'title': message['notification']['title'],
+        u'body': message['notification']['body'],
+        u'topic': message['topic'],
+        u'timestamp': firestore.SERVER_TIMESTAMP
+    })
 
 def main():
   parser = argparse.ArgumentParser()
